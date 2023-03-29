@@ -1,5 +1,7 @@
 keytool -exportcert -alias CARoot -keystore truststore.jks -storetype JKS -file ca-cert.pem
 
+value.deserializer=org.apache.kafka.connect.json.JsonDeserializer
+
 key.deserializer=org.apache.kafka.common.serialization.StringDeserializer
 value.deserializer=org.apache.kafka.common.serialization.StringDeserializer
 
