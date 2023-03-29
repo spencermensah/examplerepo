@@ -1,5 +1,7 @@
 keytool -exportcert -alias CARoot -keystore truststore.jks -storetype JKS -file ca-cert.pem
 
+key.deserializer=org.apache.kafka.common.serialization.StringDeserializer
+value.deserializer=org.apache.kafka.common.serialization.StringDeserializer
 
 from confluent_kafka import Consumer, KafkaError
 
