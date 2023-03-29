@@ -1,3 +1,6 @@
+keytool -exportcert -alias CARoot -keystore truststore.jks -storetype JKS -file ca-cert.pem
+
+
 from confluent_kafka import Consumer, KafkaError
 
 conf = {
