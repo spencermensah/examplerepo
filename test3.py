@@ -1,0 +1,36 @@
+from confluent_kafka import Consumer, KafkaError
+
+conf = {
+    'bootstrap.servers': 'your.kafka.bootstrap.server:9092',
+    'group.id': 'your-consumer-group-id',
+    'auto.offset.reset': 'earliest',
+    'enable.auto.commit': False,
+    'security.protocol': 'ssl',
+    'ssl.truststore.location': '/path/to/truststore',
+    'ssl.truststore.password': 'truststore-password'
+}
+
+consumer = Consumer(conf)
+
+topic = 'your-kafka-topic'
+
+consumer.subscribe([topic])
+
+try:
+    while True:
+        msg = consumer.poll(1.0)
+
+        if msg is None:
+            continue
+        if msg.error():
+            if msg.error().code() == KafkaError._PARTITION_EOF:
+                print('End of partition reached {0}/{1}'.format(msg.topic(), msg.partition()))
+            else:
+                print('Error while consuming message: {0}'.format(msg.error()))
+        else:
+            print('Received message: {0}'.format(msg.value().decode('utf-8')))
+            consumer.commit()
+except KeyboardInterrupt:
+    print('Interrupted')
+finally:
+    consumer.close()
