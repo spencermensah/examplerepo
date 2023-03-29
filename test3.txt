@@ -13,6 +13,15 @@ conf = {
     'ssl.truststore.password': 'truststore-password'
 }
 
+conf = {
+    'bootstrap.servers': 'your.kafka.bootstrap.server:9092',
+    'group.id': 'your-consumer-group-id',
+    'auto.offset.reset': 'earliest',
+    'enable.auto.commit': False,
+    'security.protocol': 'ssl',
+    'ssl.cafile': '/path/to/ca-cert.pem'
+}
+
 consumer = Consumer(conf)
 
 topic = 'your-kafka-topic'
